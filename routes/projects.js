@@ -54,13 +54,8 @@ router.put('/:id', async (req, res, next) => {
   const { id } = req.params;
   const { title, description } = req.body;
   try {
-    const project = await Project.findById(id);
-    if (!project) {
-      res.status(404).json({ response: 'Project not found' })
-    } else {
-      const updatedProject = await Project.findByIdAndUpdate(id, { title, description }, { new: true });
-      res.status(202).json({ data: updatedProject })
-    }
+    const updatedProject = await Project.findByIdAndUpdate(id, { title, description }, { new: true });
+    res.status(202).json({ data: updatedProject })
   } catch (error) {
     next(error);
   }
@@ -72,13 +67,8 @@ router.put('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   const { id } = req.params;
   try {
-    const project = await Project.findById(id);
-    if (!project) {
-      res.status(404).json({ response: 'Project not found' });
-    } else {
-      const deleted = await Project.findByIdAndDelete(id);
-      res.status(202).json({ data: deleted });
-    }
+    const deleted = await Project.findByIdAndDelete(id);
+    res.status(202).json({ data: deleted });
   } catch (error) {
     next(error);
   }
