@@ -7,6 +7,7 @@ const logger = require('morgan');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 const cors = require('cors');
+const errorHandler = require('./middlewares/errorHandler');
 
 // Routers require
 const projectRouter = require('./routes/projects');
@@ -42,7 +43,7 @@ app.use(
 
 // routes intro
 app.use('/api/v1/projects', projectRouter);
-
+app.use(errorHandler);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
