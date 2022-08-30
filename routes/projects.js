@@ -1,9 +1,10 @@
 const router = require('express').Router();
 const Project = require('../models/Project');
 const ErrorResponse = require('../utils/error');
+const { isAuthenticated } = require('../middlewares/jwt');
 
 // @desc    Get all projects
-// @route   GET /
+// @route   GET /api/v1/projects/
 // @access  Public
 router.get('/', async (req, res, next) => {
   try {
@@ -18,7 +19,7 @@ router.get('/', async (req, res, next) => {
 });
 
 // @desc    Get single project
-// @route   GET /:id
+// @route   GET /api/v1/projects/:id
 // @access  Public
 router.get('/:id', async (req, res, next) => {
   const { id } = req.params;
@@ -34,7 +35,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 // @desc    Create a project
-// @route   POST /
+// @route   POST /api/v1/projects
 // @access  Public
 router.post('/', async (req, res, next) => {
   const { title, description } = req.body;
@@ -50,7 +51,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // @desc    Edit a project
-// @route   PUT /:id
+// @route   PUT /api/v1/projects/:id
 // @access  Public
 router.put('/:id', async (req, res, next) => {
   const { id } = req.params;
@@ -69,9 +70,9 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // @desc    Delete a project
-// @route   DELETE /:id
+// @route   DELETE /api/v1/projects/:id
 // @access  Public
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAuthenticated, async (req, res, next) => {
   const { id } = req.params;
   try {
     const project = await Project.findById(id);
