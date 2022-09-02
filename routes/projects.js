@@ -37,7 +37,7 @@ router.get('/:id', async (req, res, next) => {
 // @desc    Create a project
 // @route   POST /api/v1/projects
 // @access  Public
-router.post('/', async (req, res, next) => {
+router.post('/', isAuthenticated, async (req, res, next) => {
   const { title, description } = req.body;
   try {
     const project = await Project.create({ title, description });
