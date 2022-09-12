@@ -10,7 +10,7 @@ const projectSchema = new Schema(
       type: String,
       required: true
     },
-    imageUrl: {
+    imageUrl: { // imageUrls in case of multiple file upload
       type: String
       // type: [String], In case of multiple files
     }
